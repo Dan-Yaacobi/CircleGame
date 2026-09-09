@@ -1,6 +1,38 @@
-[gd_scene format=3 uid="uid://c30i0gvqu8yhn"]
+[gd_scene load_steps=9 format=3 uid="uid://c30i0gvqu8yhn"]
 
 [ext_resource type="Script" uid="uid://da40bhlvrpka3" path="res://Scenes/scratch_circle.gd" id="1_k0a1a"]
+[ext_resource type="Script" uid="uid://b5l117cc527ti" path="res://Scripts/line_2d.gd" id="2_line2d"]
+[ext_resource type="Shader" uid="uid://di41nt3tb2dth" path="res://Shaders/backgound_visibility.gdshader" id="3_bgshader"]
+[ext_resource type="Texture2D" uid="uid://cc25w0jyd8ont" path="res://Assets/bg1.jpg" id="4_bgtex"]
+[ext_resource type="PackedScene" uid="uid://cuo1lj8ta6aqu" path="res://Scenes/Player.tscn" id="5_player"]
+[ext_resource type="Shader" path="res://Shaders/scratch_cover.gdshader" id="6_covershader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
+shader = ExtResource("3_bgshader")
+shader_parameter/circle_center = Vector2(0, 0)
+shader_parameter/radius_px = 0.0
+shader_parameter/texture_size = Vector2(0, 0)
+shader_parameter/edge_softness = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cover"]
+shader = ExtResource("6_covershader")
+shader_parameter/cover_color = Color(0.55, 0.57, 0.62, 1)
+shader_parameter/edge_softness = 0.015
 
 [node name="ScratchCircle" type="Node2D" unique_id=1433075271]
 script = ExtResource("1_k0a1a")
+
+[node name="Line2D" type="Line2D" parent="."]
+script = ExtResource("2_line2d")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="BackgroundSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bg")
+texture = ExtResource("4_bgtex")
+
+[node name="CoverSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_cover")
+
+[node name="Player" parent="." instance=ExtResource("5_player")]

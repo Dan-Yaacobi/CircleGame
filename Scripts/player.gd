@@ -5,8 +5,9 @@ enum State { ORBITING, THROUGH_CENTER }
 @export var angular_speed: float = 2.0  # radians/sec, positive = clockwise
 @export var charge_speed_multiplier: float = 2.0
 @export var launch_speed: float = 400.0
+@export var reveal_radius: float = 14.0  # used by circles that support scratch-reveal
 
-@onready var circle: Circle = $".."
+@onready var circle = $".."  # Circle or ScratchCircle — duck-typed (global_position, curr_radius)
 
 var angle: float = 0.0
 var state: State = State.ORBITING
@@ -37,6 +38,9 @@ func _process_through_center(_delta: float) -> void:
 	velocity = launch_dir * launch_speed
 	move_and_slide()
 
+	if circle.has_method("_on_player_crossing"):
+		circle._on_player_crossing(global_position, reveal_radius)
+
 	var dist_from_center = global_position.distance_to(circle.global_position)
 	if dist_from_center >= circle.curr_radius:
 		_snap_to_orbit()
@@ -58,5 +62,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func shoot_yourself() -> void:
 	if state != State.ORBITING:
 		return
+	if circle.has_method("can_shoot") and not circle.can_shoot():
+		return
 	state = State.THROUGH_CENTER
 	launch_dir = (circle.global_position - global_position).normalized()
+	if circle.has_method("_on_shoot_started"):
+		circle._on_shoot_started()
