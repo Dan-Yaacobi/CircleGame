@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b2bbjlgpo536g"]
+
+[ext_resource type="Script" uid="uid://c6fhwmkx2arur" path="res://Scenes/prize.gd" id="1_5dl8r"]
+[ext_resource type="Texture2D" uid="uid://pxib6wnyue36" path="res://Assets/icon.svg" id="1_owadj"]
+
+[node name="Prize" type="Node2D" unique_id=1504527797]
+script = ExtResource("1_5dl8r")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1776774476]
+texture = ExtResource("1_owadj")

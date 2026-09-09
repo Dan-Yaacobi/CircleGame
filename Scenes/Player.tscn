@@ -17,7 +17,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1)
 [node name="Player" type="CharacterBody2D" unique_id=1131700885]
 scale = Vector2(3, 3)
 script = ExtResource("1_rpqav")
-launch_speed = 575.0
+launch_speed = 1000.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=2139243818]
 amount = 1000

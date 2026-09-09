@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c30i0gvqu8yhn"]
+[gd_scene format=3 uid="uid://c30i0gvqu8yhn"]
 
 [ext_resource type="Script" uid="uid://da40bhlvrpka3" path="res://Scenes/scratch_circle.gd" id="1_k0a1a"]
 [ext_resource type="Script" uid="uid://b5l117cc527ti" path="res://Scripts/line_2d.gd" id="2_line2d"]
 [ext_resource type="Shader" uid="uid://di41nt3tb2dth" path="res://Shaders/backgound_visibility.gdshader" id="3_bgshader"]
 [ext_resource type="Texture2D" uid="uid://cc25w0jyd8ont" path="res://Assets/bg1.jpg" id="4_bgtex"]
+[ext_resource type="PackedScene" uid="uid://b2bbjlgpo536g" path="res://Scenes/prize.tscn" id="5_4wkcb"]
 [ext_resource type="PackedScene" uid="uid://cuo1lj8ta6aqu" path="res://Scenes/Player.tscn" id="5_player"]
-[ext_resource type="Shader" path="res://Shaders/scratch_cover.gdshader" id="6_covershader"]
+[ext_resource type="Shader" uid="uid://yptujjqjakb8" path="res://Shaders/scratch_cover.gdshader" id="6_covershader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
 shader = ExtResource("3_bgshader")
@@ -21,18 +22,38 @@ shader_parameter/edge_softness = 0.015
 
 [node name="ScratchCircle" type="Node2D" unique_id=1433075271]
 script = ExtResource("1_k0a1a")
+curr_radius = 250.0
+max_shoots = 200
+mask_resolution = 150
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Line2D" type="Line2D" parent="." unique_id=1867971872]
 script = ExtResource("2_line2d")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1396663698]
 
-[node name="BackgroundSprite" type="Sprite2D" parent="."]
+[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=837175749]
 material = SubResource("ShaderMaterial_bg")
 texture = ExtResource("4_bgtex")
 
-[node name="CoverSprite" type="Sprite2D" parent="."]
+[node name="Prizes" type="Node2D" parent="." unique_id=1571220427]
+
+[node name="Prize" parent="Prizes" unique_id=1504527797 instance=ExtResource("5_4wkcb")]
+position = Vector2(91, -120)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize2" parent="Prizes" unique_id=511138707 instance=ExtResource("5_4wkcb")]
+position = Vector2(-71, -95)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize3" parent="Prizes" unique_id=1435180995 instance=ExtResource("5_4wkcb")]
+position = Vector2(114, 30)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize4" parent="Prizes" unique_id=575650863 instance=ExtResource("5_4wkcb")]
+position = Vector2(-60, 95)
+size = Vector2(0.5, 0.5)
+
+[node name="CoverSprite" type="Sprite2D" parent="." unique_id=202632716]
 material = SubResource("ShaderMaterial_cover")
 
-[node name="Player" parent="." instance=ExtResource("5_player")]
+[node name="Player" parent="." unique_id=2074714301 instance=ExtResource("5_player")]
