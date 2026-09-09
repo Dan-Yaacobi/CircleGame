@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dkvcccwxqcyc6"]
+
+[ext_resource type="Script" uid="uid://bp3gb4mmrrtjv" path="res://Scripts/circle.gd" id="1_2t3si"]
+[ext_resource type="Script" uid="uid://b5l117cc527ti" path="res://Scripts/line_2d.gd" id="2_0qgdb"]
+[ext_resource type="Script" uid="uid://rsh2hnuyywbb" path="res://Scenes/camera_2d.gd" id="3_lsubr"]
+[ext_resource type="Shader" uid="uid://di41nt3tb2dth" path="res://Shaders/backgound_visibility.gdshader" id="3_ru5jn"]
+[ext_resource type="Texture2D" uid="uid://cc25w0jyd8ont" path="res://Assets/bg1.jpg" id="4_ru5jn"]
+[ext_resource type="PackedScene" uid="uid://cuo1lj8ta6aqu" path="res://Scenes/Player.tscn" id="5_a3xsl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3xsl"]
+shader = ExtResource("3_ru5jn")
+shader_parameter/circle_center = Vector2(0, 0)
+shader_parameter/radius_px = 0.0
+shader_parameter/texture_size = Vector2(0, 0)
+shader_parameter/edge_softness = 2.0
+
+[node name="Circle" type="Node2D" unique_id=1531190746]
+script = ExtResource("1_2t3si")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=940466208]
+script = ExtResource("2_0qgdb")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=239778608]
+zoom = Vector2(3, 3)
+script = ExtResource("3_lsubr")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=381638309]
+material = SubResource("ShaderMaterial_a3xsl")
+texture = ExtResource("4_ru5jn")
+
+[node name="Player" parent="." unique_id=171721645 instance=ExtResource("5_a3xsl")]

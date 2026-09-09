@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c30i0gvqu8yhn"]
+
+[ext_resource type="Script" uid="uid://da40bhlvrpka3" path="res://Scenes/scratch_circle.gd" id="1_k0a1a"]
+
+[node name="ScratchCircle" type="Node2D" unique_id=1433075271]
+script = ExtResource("1_k0a1a")

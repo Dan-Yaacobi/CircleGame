@@ -1,0 +1,1 @@
+class_name SpawnController extends Node2D

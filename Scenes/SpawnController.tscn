@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bd4rcxyigcruv"]
+
+[ext_resource type="Script" uid="uid://vlupmrpvsm21" path="res://Scripts/spawn_controller.gd" id="1_v5mh1"]
+
+[node name="SpawnController" type="Node2D" unique_id=1637785252]
+script = ExtResource("1_v5mh1")
