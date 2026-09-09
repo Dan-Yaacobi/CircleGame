@@ -11,7 +11,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
 shader = ExtResource("3_bgshader")
 shader_parameter/circle_center = Vector2(0.5, 0.5)
-shader_parameter/radius_px = 0.0
+shader_parameter/radius_px = 350.0
 shader_parameter/texture_size = Vector2(1920, 1202)
 shader_parameter/edge_softness = 2.0
 
@@ -39,6 +39,9 @@ max_shoots = 200
 mask_resolution = 150
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1867971872]
+points = PackedVector2Array(350, 0, 348.31467, 34.306, 343.27484, 68.28162, 334.92914, 101.59963, 323.35782, 133.9392, 308.67245, 164.98886, 291.01434, 194.44958, 270.55365, 222.03764, 247.48737, 247.48737, 222.03764, 270.55365, 194.44958, 291.01434, 164.98886, 308.67245, 133.9392, 323.35782, 101.59963, 334.92914, 68.28162, 343.27484, 34.306, 348.31467, 2.1430611e-14, 350, -34.306, 348.31467, -68.28162, 343.27484, -101.59963, 334.92914, -133.9392, 323.35782, -164.98886, 308.67245, -194.44958, 291.01434, -222.03764, 270.55365, -247.48737, 247.48737, -270.55365, 222.03764, -291.01434, 194.44958, -308.67245, 164.98886, -323.35782, 133.9392, -334.92914, 101.59963, -343.27484, 68.28162, -348.31467, 34.306, -350, 4.2861222e-14, -348.31467, -34.306, -343.27484, -68.28162, -334.92914, -101.59963, -323.35782, -133.9392, -308.67245, -164.98886, -291.01434, -194.44958, -270.55365, -222.03764, -247.48737, -247.48737, -222.03764, -270.55365, -194.44958, -291.01434, -164.98886, -308.67245, -133.9392, -323.35782, -101.59963, -334.92914, -68.28162, -343.27484, -34.306, -348.31467, -6.4291834e-14, -350, 34.306, -348.31467, 68.28162, -343.27484, 101.59963, -334.92914, 133.9392, -323.35782, 164.98886, -308.67245, 194.44958, -291.01434, 222.03764, -270.55365, 247.48737, -247.48737, 270.55365, -222.03764, 291.01434, -194.44958, 308.67245, -164.98886, 323.35782, -133.9392, 334.92914, -101.59963, 343.27484, -68.28162, 348.31467, -34.306, 350, -8.5722445e-14)
+width = 4.0
+antialiased = true
 script = ExtResource("2_line2d")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1396663698]
@@ -51,22 +54,28 @@ texture = ExtResource("4_bgtex")
 
 [node name="Prize" parent="Prizes" unique_id=1504527797 instance=ExtResource("5_4wkcb")]
 position = Vector2(91, -120)
+scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
 [node name="Prize2" parent="Prizes" unique_id=511138707 instance=ExtResource("5_4wkcb")]
 position = Vector2(-71, -95)
+scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
 [node name="Prize3" parent="Prizes" unique_id=1435180995 instance=ExtResource("5_4wkcb")]
 position = Vector2(114, 30)
+scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
 [node name="Prize4" parent="Prizes" unique_id=575650863 instance=ExtResource("5_4wkcb")]
 position = Vector2(-60, 95)
+scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
 [node name="CoverSprite" type="Sprite2D" parent="." unique_id=202632716]
+visible = false
 material = SubResource("ShaderMaterial_cover")
+scale = Vector2(4.6666665, 4.6666665)
 texture = SubResource("ImageTexture_8jcig")
 
 [node name="Player" parent="." unique_id=2074714301 instance=ExtResource("5_player")]

@@ -2,6 +2,7 @@ class_name Player extends CharacterBody2D
 
 enum State { ORBITING, THROUGH_CENTER }
 
+@onready var sprite: Sprite2D = $Sprite2D
 @export var angular_speed: float = 2.0  # radians/sec, positive = clockwise
 @export var charge_speed_multiplier: float = 2.0
 @export var launch_speed: float = 400.0
@@ -68,3 +69,6 @@ func shoot_yourself() -> void:
 	launch_dir = (circle.global_position - global_position).normalized()
 	if circle.has_method("_on_shoot_started"):
 		circle._on_shoot_started()
+
+func set_sprite_frame() -> void:
+	sprite.frame = GlobalVariables.frame_number

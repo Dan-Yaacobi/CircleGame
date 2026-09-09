@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cuo1lj8ta6aqu"]
 
 [ext_resource type="Script" uid="uid://dko7metu5oxer" path="res://Scripts/player.gd" id="1_rpqav"]
-[ext_resource type="Texture2D" uid="uid://qy2lm3atb8b5" path="res://Assets/CirclePlayer.png" id="2_gntrk"]
+[ext_resource type="Texture2D" uid="uid://cnvcnmfbnqf0j" path="res://Assets/CoinPlayers.png" id="2_kyqiw"]
 
 [sub_resource type="Curve" id="Curve_kyqiw"]
 _limits = [0.0, 3.0, 0.0, 1.0]
@@ -13,6 +13,7 @@ offsets = PackedFloat32Array(0, 0.42118227, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nuysd"]
+radius = 5.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1131700885]
 scale = Vector2(3, 3)
@@ -32,7 +33,8 @@ color_ramp = SubResource("Gradient_nuysd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=780392007]
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_gntrk")
+texture = ExtResource("2_kyqiw")
+hframes = 5
 
 [node name="EnemyDetector" type="Area2D" parent="." unique_id=688638040]
 

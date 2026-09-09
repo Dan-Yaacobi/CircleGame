@@ -1,6 +1,11 @@
+@tool
+
 extends Node2D
 
-@export var size: Vector2
+@export var size: Vector2:
+	set(value):
+		size = value
+		scale = value
 @export_range(0.0, 1.0) var reveal_percentage: float = 0.5  # fraction of this prize that must be scratched off
 @export var finish_reveal_radius: float = 40.0  # bonus reveal radius once the threshold is hit
 @onready var reveal_effect: CPUParticles2D = $RevealEffect
