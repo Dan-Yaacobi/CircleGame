@@ -1,3 +1,4 @@
+@tool
 extends Line2D
 
 var radius: float = 100.0
