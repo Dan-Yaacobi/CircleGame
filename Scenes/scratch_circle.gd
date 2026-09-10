@@ -12,19 +12,23 @@ class_name ScratchCircle extends Node2D
 @onready var cover_sprite: Sprite2D = $CoverSprite
 @onready var circle_shape: Line2D = $Line2D
 @onready var prizes: Node = $Prizes
+@onready var player: Player = $Player
 
 var shoots_used: int = 0
 var mask_image: Image
 var mask_texture: ImageTexture
 
 func _ready() -> void:
+	
 	var bg_mat := background_sprite.material as ShaderMaterial
 	bg_mat.set_shader_parameter("texture_size", background_sprite.texture.get_size())
 	bg_mat.set_shader_parameter("circle_center", Vector2(0.5, 0.5))
 
 	_setup_scratch_mask()
 	_update_boundary()
-
+	if !Engine.is_editor_hint():
+		player.set_sprite_frame()
+		
 func _setup_scratch_mask() -> void:
 	mask_image = Image.create_empty(mask_resolution, mask_resolution, false, Image.FORMAT_R8)
 	mask_image.fill(Color(1, 1, 1, 1))  # fully covered
@@ -46,6 +50,7 @@ func bend_boundary(angle: float) -> void:
 	circle_shape.bend_at(angle)
 
 func can_shoot() -> bool:
+	return true
 	return shoots_used < max_shoots
 
 func _on_shoot_started() -> void:

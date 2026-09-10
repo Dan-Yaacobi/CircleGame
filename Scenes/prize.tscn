@@ -3,8 +3,34 @@
 [ext_resource type="Script" uid="uid://c6fhwmkx2arur" path="res://Scenes/prize.gd" id="1_5dl8r"]
 [ext_resource type="Texture2D" uid="uid://pxib6wnyue36" path="res://Assets/icon.svg" id="1_owadj"]
 
+[sub_resource type="Curve" id="Curve_1jmy8"]
+_limits = [0.0, 15.0, 0.0, 1.0]
+_data = [Vector2(0.0060423017, 15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nuysd"]
+offsets = PackedFloat32Array(0, 0.13590604, 0.23993288, 0.4614094, 0.6057047, 0.76342285, 0.897651, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 0.8235294, 0.29411766, 1, 1, 0.47843137, 0.52156866, 1, 0, 0, 1, 1, 1, 0.5882353, 0.23137255, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1)
+
 [node name="Prize" type="Node2D" unique_id=1504527797]
+scale = Vector2(1e-05, 1e-05)
 script = ExtResource("1_5dl8r")
+reveal_percentage = 0.75
+finish_reveal_radius = 80.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1776774476]
 texture = ExtResource("1_owadj")
+
+[node name="RevealEffect" type="CPUParticles2D" parent="." unique_id=231403694]
+emitting = false
+amount = 150
+one_shot = true
+preprocess = 0.5
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 50.0
+gravity = Vector2(0, 0)
+radial_accel_min = 150.0
+radial_accel_max = 150.0
+scale_amount_curve = SubResource("Curve_1jmy8")
+color_ramp = SubResource("Gradient_nuysd")

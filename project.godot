@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="CircleGame"
-run/main_scene="uid://dkvcccwxqcyc6"
+run/main_scene="uid://0skll35j36f4"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://Assets/icon.svg"
+
+[autoload]
+
+GlobalVariables="*uid://bgdwx58wo1b28"
 
 [display]
 

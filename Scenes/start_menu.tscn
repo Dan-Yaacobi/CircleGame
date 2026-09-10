@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://0skll35j36f4"]
+
+[ext_resource type="Script" uid="uid://bfdmsvpnbbaoo" path="res://start_menu.gd" id="1_jgtwh"]
+[ext_resource type="Texture2D" uid="uid://cnvcnmfbnqf0j" path="res://Assets/CoinPlayers.png" id="2_m6uer"]
+
+[node name="StartMenu" type="Node2D" unique_id=235140335]
+script = ExtResource("1_jgtwh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743403493]
+position = Vector2(62, 59)
+texture = ExtResource("2_m6uer")
+hframes = 5
+
+[node name="Control" type="Control" parent="." unique_id=751919536]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1159312666]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Choose your coin"
+
+[node name="NextButton" type="Button" parent="Control" unique_id=1115704241]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 44.0
+offset_right = 145.0
+offset_bottom = 75.0
+text = "Next
+"
+
+[node name="ChooseButton" type="Button" parent="Control" unique_id=755378020]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 90.0
+offset_right = 93.0
+offset_bottom = 121.0
+text = "Choose"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=694043915]
+position = Vector2(63, 60)
+zoom = Vector2(4, 4)
+
+[connection signal="pressed" from="Control/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="Control/ChooseButton" to="." method="_on_choose_button_pressed"]
