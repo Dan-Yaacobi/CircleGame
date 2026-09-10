@@ -47,6 +47,7 @@ func _update_boundary() -> void:
 		cover_sprite.scale = Vector2.ONE * (curr_radius * 2.0 / mask_resolution)
 
 func can_shoot() -> bool:
+	return true
 	return shoots_used < max_shoots
 
 func _on_shoot_started() -> void:

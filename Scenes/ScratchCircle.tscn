@@ -35,7 +35,7 @@ image = SubResource("Image_4wkcb")
 [node name="ScratchCircle" type="Node2D" unique_id=1433075271]
 script = ExtResource("1_k0a1a")
 curr_radius = 350.0
-max_shoots = 200
+max_shoots = -1
 mask_resolution = 150
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1867971872]
@@ -45,6 +45,7 @@ antialiased = true
 script = ExtResource("2_line2d")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1396663698]
+zoom = Vector2(0.9, 0.9)
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=837175749]
 material = SubResource("ShaderMaterial_bg")
@@ -62,6 +63,31 @@ position = Vector2(-71, -95)
 scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
+[node name="Prize5" parent="Prizes" unique_id=1035412839 instance=ExtResource("5_4wkcb")]
+position = Vector2(-114, -221)
+scale = Vector2(0.5, 0.5)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize6" parent="Prizes" unique_id=2102448475 instance=ExtResource("5_4wkcb")]
+position = Vector2(-197, 12)
+scale = Vector2(0.5, 0.5)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize7" parent="Prizes" unique_id=146851362 instance=ExtResource("5_4wkcb")]
+position = Vector2(149, 182)
+scale = Vector2(0.5, 0.5)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize8" parent="Prizes" unique_id=1435238262 instance=ExtResource("5_4wkcb")]
+position = Vector2(-57, 244)
+scale = Vector2(0.5, 0.5)
+size = Vector2(0.5, 0.5)
+
+[node name="Prize9" parent="Prizes" unique_id=1163826514 instance=ExtResource("5_4wkcb")]
+position = Vector2(263, -64)
+scale = Vector2(0.5, 0.5)
+size = Vector2(0.5, 0.5)
+
 [node name="Prize3" parent="Prizes" unique_id=1435180995 instance=ExtResource("5_4wkcb")]
 position = Vector2(114, 30)
 scale = Vector2(0.5, 0.5)
@@ -73,9 +99,10 @@ scale = Vector2(0.5, 0.5)
 size = Vector2(0.5, 0.5)
 
 [node name="CoverSprite" type="Sprite2D" parent="." unique_id=202632716]
-visible = false
 material = SubResource("ShaderMaterial_cover")
 scale = Vector2(4.6666665, 4.6666665)
 texture = SubResource("ImageTexture_8jcig")
 
 [node name="Player" parent="." unique_id=2074714301 instance=ExtResource("5_player")]
+charge_speed_multiplier = 1.5
+launch_speed = 1250.0

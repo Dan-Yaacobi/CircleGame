@@ -59,7 +59,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_charging:
 			is_charging = false
 			shoot_yourself()
-
+	if State.THROUGH_CENTER:
+		if event.is_action_pressed("shoot"):
+			launch_dir = -1 *launch_dir
+			
 func shoot_yourself() -> void:
 	if state != State.ORBITING:
 		return
