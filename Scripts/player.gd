@@ -43,7 +43,10 @@ func _process_through_center(_delta: float) -> void:
 		circle._on_player_crossing(global_position, reveal_radius)
 
 	var dist_from_center = global_position.distance_to(circle.global_position)
-	if dist_from_center >= circle.curr_radius:
+	# Trigger on contact with the coin's edge, not its center — otherwise the
+	# impact (and its bend) visibly lags behind where the coin looks like it
+	# hits the boundary.
+	if dist_from_center >= circle.curr_radius - reveal_radius:
 		_snap_to_orbit()
 
 func _snap_to_orbit() -> void:
