@@ -35,9 +35,6 @@ func _process_orbit(delta: float) -> void:
 	velocity = (target_pos - global_position) / delta
 	move_and_slide()
 
-	if circle.has_method("bend_boundary"):
-		circle.bend_boundary(angle)
-
 func _process_through_center(_delta: float) -> void:
 	velocity = launch_dir * launch_speed
 	move_and_slide()
@@ -54,6 +51,9 @@ func _snap_to_orbit() -> void:
 	var offset = (global_position - circle.global_position).normalized()
 	global_position = circle.global_position + offset * circle.curr_radius
 	angle = offset.angle()
+
+	if circle.has_method("bend_boundary"):
+		circle.bend_boundary(angle)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
