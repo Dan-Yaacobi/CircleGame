@@ -42,6 +42,9 @@ func _update_boundary() -> void:
 	if cover_sprite and mask_texture:
 		cover_sprite.scale = Vector2.ONE * (curr_radius * 2.0 / mask_resolution)
 
+func bend_boundary(angle: float) -> void:
+	circle_shape.bend_at(angle)
+
 func can_shoot() -> bool:
 	return shoots_used < max_shoots
 

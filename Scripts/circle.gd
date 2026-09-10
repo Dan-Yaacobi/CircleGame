@@ -36,3 +36,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func update_mask_radius(radius: float):
 	var mat = background_sprite.material as ShaderMaterial
 	mat.set_shader_parameter("radius_px", radius)
+
+func bend_boundary(angle: float) -> void:
+	circle_shape.bend_at(angle)
