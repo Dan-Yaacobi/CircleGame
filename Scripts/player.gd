@@ -8,6 +8,12 @@ enum State { ORBITING, THROUGH_CENTER }
 @export var launch_speed: float = 400.0
 @export var reveal_radius: float = 14.0  # used by circles that support scratch-reveal
 
+## Impact bounce: on landing, the sprite pops outward and springs back —
+## same damped-spring feel as the boundary's bend, so they read together.
+@export var bounce_strength: float = 8.0  # px, max outward pop on impact
+@export var bounce_stiffness: float = 160.0  # spring tension — higher snaps back faster/harder
+@export var bounce_damping: float = 12.0  # higher settles the wobble faster, less bounce
+
 @onready var circle = $".."  # Circle or ScratchCircle — duck-typed (global_position, curr_radius)
 
 var angle: float = 0.0
@@ -15,8 +21,20 @@ var state: State = State.ORBITING
 var launch_dir: Vector2
 var is_charging: bool = false
 
+var _bounce_offset: float = 0.0
+var _bounce_velocity: float = 0.0
+
 func _ready():
 	angle = (global_position - circle.global_position).angle()
+
+func _process(delta: float) -> void:
+	if absf(_bounce_offset) < 0.001 and absf(_bounce_velocity) < 0.001:
+		return
+	var accel = -bounce_stiffness * _bounce_offset - bounce_damping * _bounce_velocity
+	_bounce_velocity += accel * delta
+	_bounce_offset += _bounce_velocity * delta
+	var outward = (global_position - circle.global_position).normalized()
+	sprite.position = outward * (_bounce_offset / scale.x)
 
 func _physics_process(delta):
 	match state:
@@ -57,6 +75,9 @@ func _snap_to_orbit() -> void:
 
 	if circle.has_method("bend_boundary"):
 		circle.bend_boundary(angle)
+
+	_bounce_velocity = 0.0
+	_bounce_offset = bounce_strength
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
