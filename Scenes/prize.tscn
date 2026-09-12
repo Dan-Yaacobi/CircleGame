@@ -3,6 +3,19 @@
 [ext_resource type="Script" uid="uid://c6fhwmkx2arur" path="res://Scripts/prize.gd" id="1_5dl8r"]
 [ext_resource type="Texture2D" uid="uid://dxhvdl22hnm4o" path="res://Assets/Prizes.png" id="2_5dl8r"]
 [ext_resource type="Texture2D" uid="uid://bqtgrdb2onjc8" path="res://Assets/Skull.png" id="3_b162x"]
+[ext_resource type="Shader" path="res://Shaders/prize_glow.gdshader" id="4_glow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow"]
+shader = ExtResource("4_glow")
+shader_parameter/glow_color = Color(1, 0.85, 0.3, 1)
+shader_parameter/outline_width = 2.0
+shader_parameter/glow_spread = 6.0
+shader_parameter/glow_softness = 0.5
+shader_parameter/glow_intensity = 1.5
+shader_parameter/pulse_speed = 2.0
+shader_parameter/pulse_amount = 0.35
+shader_parameter/ring_samples = 10
+shader_parameter/alpha_threshold = 0.5
 
 [sub_resource type="Curve" id="Curve_1jmy8"]
 _limits = [0.0, 15.0, 0.0, 1.0]
@@ -24,6 +37,7 @@ reveal_percentage = 0.75
 finish_reveal_radius = 30.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1776774476]
+material = SubResource("ShaderMaterial_glow")
 texture = ExtResource("2_5dl8r")
 hframes = 3
 

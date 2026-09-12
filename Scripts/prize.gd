@@ -31,6 +31,7 @@ var _footprint_px_radius: float = -1.0
 func _ready() -> void:
 	sprite.frame = frame
 	_footprint_px_radius = _measure_footprint_px_radius()
+	_update_glow_frame_uniforms()
 
 # Called by the ScratchCircle each time the cover mask changes.
 func try_complete_reveal(scratch_circle: Node) -> void:
@@ -58,6 +59,26 @@ func _footprint_radius() -> float:
 # go below the footprint itself, or a bigger prize wouldn't fully clear.
 func _scaled_finish_reveal_radius(footprint_radius: float) -> float:
 	return max(finish_reveal_radius * max(scale.x, scale.y), footprint_radius)
+
+# Tells the glow shader exactly which sub-rectangle of the shared sprite
+# sheet is "this icon", so its silhouette scan never bleeds into a neighbor.
+func _update_glow_frame_uniforms() -> void:
+	var mat := sprite.material as ShaderMaterial
+	if not mat or not sprite.texture:
+		return
+	var hframes: int = max(sprite.hframes, 1)
+	var vframes: int = max(sprite.vframes, 1)
+	var frame_index: int = max(sprite.frame, 0)
+	var col: int = frame_index % hframes
+	var row: int = int(frame_index / float(hframes))
+	var frame_uv_size := Vector2(1.0 / hframes, 1.0 / vframes)
+	var frame_uv_origin := Vector2(col, row) * frame_uv_size
+	var tex_size: Vector2 = sprite.texture.get_size()
+	var frame_pixel_size := Vector2(tex_size.x / hframes, tex_size.y / vframes)
+
+	mat.set_shader_parameter("frame_uv_origin", frame_uv_origin)
+	mat.set_shader_parameter("frame_uv_size", frame_uv_size)
+	mat.set_shader_parameter("frame_pixel_size", frame_pixel_size)
 
 # Scans this frame's own pixels for actual opaque bounds — correctly handles
 # both sprite sheets (hframes/vframes) and art that doesn't fill its frame.
