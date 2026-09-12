@@ -1,6 +1,8 @@
 @tool
 class_name ScratchCircle extends Node2D
+const COLLECTED = preload("uid://ddur1cjb66rk3")
 
+@onready var label: Label = $CanvasLayer/Label
 @export var curr_radius: float = 100.0:
 	set(value):
 		curr_radius = value
@@ -18,6 +20,8 @@ class_name ScratchCircle extends Node2D
 	set(value):
 		edge_softness = value
 		_update_boundary()
+@onready var prize_hud_container: GridContainer = $CanvasLayer/Control/HBoxContainer
+@export var next_level: PackedScene
 
 @export_subgroup("Image Fit")
 @export var image_offset: Vector2 = Vector2.ZERO:  # pan the artwork within the ticket, in UV units
@@ -38,6 +42,8 @@ class_name ScratchCircle extends Node2D
 @onready var circle_shape: Line2D = $Line2D
 @onready var prizes: Node = $Prizes
 @onready var player: Player = $Player
+@onready var restart_level_button: Button = $CanvasLayer/RestartLevelButton
+@onready var next_level_button: Button = $CanvasLayer/NextLevelButton
 
 var shoots_used: int = 0
 var mask_image: Image
@@ -46,11 +52,15 @@ var mask_texture: ImageTexture
 var prize_found: Dictionary[int,int] = {}
 var bad_prizes_found: int = 0
 
+var lost: bool = false
+
 func _ready() -> void:
 	_update_background_texture()
 	_update_boundary()
 	_update_image_fit()
-
+	label.hide()
+	next_level_button.hide()
+	restart_level_button.hide()
 	# The paintable scratch mask is runtime-only: building it in the editor
 	# (via @tool) would bake the generated Image/ImageTexture into the scene
 	# file on save. Same for forcing the cover visible.
@@ -73,6 +83,9 @@ func update_prize_found(_bad: bool, id: int) -> void:
 			prize_found[id] = 1
 	else:
 		bad_prizes_found += 1
+	var new_collected: CollectedControl = COLLECTED.instantiate()
+	prize_hud_container.add_child(new_collected)
+	new_collected.set_sprite(id)
 	check_win()
 	
 func check_win() -> void:
@@ -83,11 +96,21 @@ func check_win() -> void:
 			win()
 
 func win() -> void:
-	print("You Win!")
-	
-func lose() -> void:
-	print("You Lose!")
+	if !lost:
+		label.show()
+		label.text = "You Win!"
+		player.can_act = false
+		next_level_button.show()
+		next_level_button.disabled = false
 
+func lose() -> void:
+	lost = true
+	label.show()
+	label.text = "You Lose!"
+	player.can_act = false
+	restart_level_button.show()
+	restart_level_button.disabled = false
+	
 func _setup_scratch_mask() -> void:
 	mask_image = Image.create_empty(mask_resolution, mask_resolution, false, Image.FORMAT_R8)
 	mask_image.fill(Color(1, 1, 1, 1))  # fully covered
@@ -193,3 +216,11 @@ func _stamp_circle(center_px: Vector2, radius_px: float) -> void:
 		for x in range(min_x, max_x + 1):
 			if Vector2(x - center_px.x, y - center_px.y).length_squared() <= r_sq:
 				mask_image.set_pixel(x, y, Color(0, 0, 0, 0))  # revealed
+
+
+func _on_next_level_button_pressed() -> void:
+	if next_level:
+		get_tree().change_scene_to_packed(next_level)
+
+func _on_restart_level_button_pressed() -> void:
+	get_tree().reload_current_scene()

@@ -15,6 +15,7 @@ var state: State = State.ORBITING
 var launch_dir: Vector2
 var is_charging: bool = false
 
+var can_act: bool = true
 func _ready():
 	angle = (global_position - circle.global_position).angle()
 
@@ -59,15 +60,16 @@ func _snap_to_orbit() -> void:
 		circle.bend_boundary(angle)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot"):
-		is_charging = true
-	elif event.is_action_released("shoot"):
-		if is_charging:
-			is_charging = false
-			shoot_yourself()
-	if State.THROUGH_CENTER:
+	if can_act:
 		if event.is_action_pressed("shoot"):
-			launch_dir = -1 *launch_dir
+			is_charging = true
+		elif event.is_action_released("shoot"):
+			if is_charging:
+				is_charging = false
+				shoot_yourself()
+		if State.THROUGH_CENTER:
+			if event.is_action_pressed("shoot"):
+				launch_dir = -1 *launch_dir
 			
 func shoot_yourself() -> void:
 	if state != State.ORBITING:

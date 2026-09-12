@@ -17,6 +17,7 @@ signal prize_revealed(_bad: bool, id: int)
 @export_range(0.0, 1.0) var reveal_percentage: float = 0.5  # fraction of this prize that must be scratched off
 @export var finish_reveal_radius: float = 40.0  # bonus reveal radius once the threshold is hit
 @onready var reveal_effect: CPUParticles2D = $RevealEffect
+@onready var bad_reveal_effect: CPUParticles2D = $BadRevealEffect
 
 var revealed: bool = false
 
@@ -42,7 +43,10 @@ func try_complete_reveal(scratch_circle: Node) -> void:
 		revealed = true
 		prize_revealed.emit(bad, frame)
 		scratch_circle.reveal_area(local_pos, _scaled_finish_reveal_radius(footprint))
-		reveal_effect.emitting = true
+		if bad:
+			bad_reveal_effect.emitting = true
+		else:
+			reveal_effect.emitting = true
 
 func _footprint_radius() -> float:
 	if _footprint_px_radius < 0.0:

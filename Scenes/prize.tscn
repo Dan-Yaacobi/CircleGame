@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b2bbjlgpo536g"]
 
-[ext_resource type="Script" uid="uid://c6fhwmkx2arur" path="res://Scenes/prize.gd" id="1_5dl8r"]
+[ext_resource type="Script" uid="uid://c6fhwmkx2arur" path="res://Scripts/prize.gd" id="1_5dl8r"]
 [ext_resource type="Texture2D" uid="uid://dxhvdl22hnm4o" path="res://Assets/Prizes.png" id="2_5dl8r"]
+[ext_resource type="Texture2D" uid="uid://bqtgrdb2onjc8" path="res://Assets/Skull.png" id="3_b162x"]
 
 [sub_resource type="Curve" id="Curve_1jmy8"]
 _limits = [0.0, 15.0, 0.0, 1.0]
@@ -12,13 +13,15 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.13590604, 0.23993288, 0.4614094, 0.6057047, 0.76342285, 0.897651, 1)
 colors = PackedColorArray(0, 1, 0, 1, 1, 0.8235294, 0.29411766, 1, 1, 0.47843137, 0.52156866, 1, 0, 0, 1, 1, 1, 0.5882353, 0.23137255, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1)
 
+[sub_resource type="Gradient" id="Gradient_1jmy8"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
 [node name="Prize" type="Node2D" unique_id=1504527797]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_5dl8r")
-frame = null
 size = Vector2(1.5, 1.5)
-bad = null
 reveal_percentage = 0.75
-finish_reveal_radius = 80.0
+finish_reveal_radius = 30.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1776774476]
 texture = ExtResource("2_5dl8r")
@@ -37,3 +40,13 @@ radial_accel_min = 150.0
 radial_accel_max = 150.0
 scale_amount_curve = SubResource("Curve_1jmy8")
 color_ramp = SubResource("Gradient_nuysd")
+
+[node name="BadRevealEffect" type="CPUParticles2D" parent="." unique_id=571560183]
+emitting = false
+amount = 1
+texture = ExtResource("3_b162x")
+one_shot = true
+gravity = Vector2(0, -25)
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_1jmy8")

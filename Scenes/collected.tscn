@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ddur1cjb66rk3"]
+
+[ext_resource type="Texture2D" uid="uid://dxhvdl22hnm4o" path="res://Assets/Prizes.png" id="1_nnp7j"]
+[ext_resource type="Script" uid="uid://cx4husdc5oomy" path="res://Scripts/collected.gd" id="1_tbyut"]
+
+[node name="CollectedControl" type="Control" unique_id=1462304973]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 0.99999994
+offset_right = -8.0
+offset_bottom = 33.0
+grow_horizontal = 0
+scale = Vector2(1.25, 1.25)
+script = ExtResource("1_tbyut")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1736589678]
+position = Vector2(16, 16)
+texture = ExtResource("1_nnp7j")
+hframes = 3
