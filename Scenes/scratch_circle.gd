@@ -7,7 +7,8 @@ class_name ScratchCircle extends Node2D
 		_update_boundary()
 @export var max_shoots: int = 5
 @export var mask_resolution: int = 96  # low-res paintable mask, kept cheap on purpose
-
+@export var bad_prize_to_lose: int = 3
+@export var good_prize_to_win: int = 3
 @export_group("Background")
 @export var background_texture: Texture2D:
 	set(value):
@@ -42,6 +43,9 @@ var shoots_used: int = 0
 var mask_image: Image
 var mask_texture: ImageTexture
 
+var prize_found: Dictionary[int,int] = {}
+var bad_prizes_found: int = 0
+
 func _ready() -> void:
 	_update_background_texture()
 	_update_boundary()
@@ -55,6 +59,34 @@ func _ready() -> void:
 		_setup_scratch_mask()
 		_update_boundary()
 		player.set_sprite_frame()
+		
+	for prize in prizes.get_children():
+		if prize is Prize:
+			prize.prize_revealed.connect(update_prize_found)
+			
+
+func update_prize_found(_bad: bool, id: int) -> void:
+	if not _bad:
+		if prize_found.has(id):
+			prize_found[id] += 1
+		else:
+			prize_found[id] = 1
+	else:
+		bad_prizes_found += 1
+	check_win()
+	
+func check_win() -> void:
+	if bad_prizes_found >= bad_prize_to_lose:
+		lose()
+	for prize_id in prize_found.keys():
+		if prize_found[prize_id] >= good_prize_to_win:
+			win()
+
+func win() -> void:
+	print("You Win!")
+	
+func lose() -> void:
+	print("You Lose!")
 
 func _setup_scratch_mask() -> void:
 	mask_image = Image.create_empty(mask_resolution, mask_resolution, false, Image.FORMAT_R8)
@@ -99,7 +131,7 @@ func bend_boundary(angle: float) -> void:
 
 func can_shoot() -> bool:
 	return true
-	return shoots_used < max_shoots
+	#return shoots_used < max_shoots
 
 func _on_shoot_started() -> void:
 	shoots_used += 1
