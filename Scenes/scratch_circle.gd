@@ -8,6 +8,30 @@ class_name ScratchCircle extends Node2D
 @export var max_shoots: int = 5
 @export var mask_resolution: int = 96  # low-res paintable mask, kept cheap on purpose
 
+@export_group("Background")
+@export var background_texture: Texture2D:
+	set(value):
+		background_texture = value
+		_update_background_texture()
+@export_range(0.0, 20.0, 0.1) var edge_softness: float = 2.0:
+	set(value):
+		edge_softness = value
+		_update_boundary()
+
+@export_subgroup("Image Fit")
+@export var image_offset: Vector2 = Vector2.ZERO:  # pan the artwork within the ticket, in UV units
+	set(value):
+		image_offset = value
+		_update_image_fit()
+@export_range(0.05, 10.0, 0.01) var image_zoom: float = 1.0:  # >1 zooms in
+	set(value):
+		image_zoom = value
+		_update_image_fit()
+@export_range(-PI, PI, 0.01) var image_rotation: float = 0.0:  # radians
+	set(value):
+		image_rotation = value
+		_update_image_fit()
+
 @onready var background_sprite: Sprite2D = $BackgroundSprite
 @onready var cover_sprite: Sprite2D = $CoverSprite
 @onready var circle_shape: Line2D = $Line2D
@@ -19,22 +43,34 @@ var mask_image: Image
 var mask_texture: ImageTexture
 
 func _ready() -> void:
-	cover_sprite.visible = true
-	var bg_mat := background_sprite.material as ShaderMaterial
-	bg_mat.set_shader_parameter("texture_size", background_sprite.texture.get_size())
-	bg_mat.set_shader_parameter("circle_center", Vector2(0.5, 0.5))
-
-	_setup_scratch_mask()
+	_update_background_texture()
 	_update_boundary()
-	if !Engine.is_editor_hint():
-		player.set_sprite_frame()
+	_update_image_fit()
 
+	# The paintable scratch mask is runtime-only: building it in the editor
+	# (via @tool) would bake the generated Image/ImageTexture into the scene
+	# file on save. Same for forcing the cover visible.
+	if not Engine.is_editor_hint():
+		cover_sprite.visible = true
+		_setup_scratch_mask()
+		_update_boundary()
+		player.set_sprite_frame()
 
 func _setup_scratch_mask() -> void:
 	mask_image = Image.create_empty(mask_resolution, mask_resolution, false, Image.FORMAT_R8)
 	mask_image.fill(Color(1, 1, 1, 1))  # fully covered
 	mask_texture = ImageTexture.create_from_image(mask_image)
 	cover_sprite.texture = mask_texture
+
+func _update_background_texture() -> void:
+	if not background_sprite:
+		return
+	if background_texture:
+		background_sprite.texture = background_texture
+	if background_sprite.material and background_sprite.texture:
+		var bg_mat := background_sprite.material as ShaderMaterial
+		bg_mat.set_shader_parameter("texture_size", background_sprite.texture.get_size())
+		bg_mat.set_shader_parameter("circle_center", Vector2(0.5, 0.5))
 
 # Keeps the boundary line, background mask and cover sprite in sync with
 # curr_radius — runs live in the editor (via @tool) so prizes can be placed
@@ -43,9 +79,20 @@ func _update_boundary() -> void:
 	if circle_shape:
 		circle_shape.set_radius_immediate(curr_radius)
 	if background_sprite and background_sprite.material:
-		(background_sprite.material as ShaderMaterial).set_shader_parameter("radius_px", curr_radius)
+		var bg_mat := background_sprite.material as ShaderMaterial
+		bg_mat.set_shader_parameter("radius_px", curr_radius)
+		bg_mat.set_shader_parameter("edge_softness", edge_softness)
 	if cover_sprite and mask_texture:
 		cover_sprite.scale = Vector2.ONE * (curr_radius * 2.0 / mask_resolution)
+
+# How the artwork is framed inside the (fixed) ticket boundary — pan/zoom/rotate.
+func _update_image_fit() -> void:
+	if not background_sprite or not background_sprite.material:
+		return
+	var mat := background_sprite.material as ShaderMaterial
+	mat.set_shader_parameter("image_offset", image_offset)
+	mat.set_shader_parameter("image_zoom", image_zoom)
+	mat.set_shader_parameter("image_rotation", image_rotation)
 
 func bend_boundary(angle: float) -> void:
 	circle_shape.bend_at(angle)
