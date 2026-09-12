@@ -33,4 +33,4 @@ func try_complete_reveal(scratch_circle: Node) -> void:
 		reveal_effect.emitting = true
 func _footprint_radius() -> float:
 	var tex_size: Vector2 = sprite.texture.get_size()
-	return max(tex_size.x, tex_size.y) * 0.5 * max(scale.x, scale.y)
+	return max(tex_size.x, tex_size.y) * 0.5 * max(size.x, size.y)
