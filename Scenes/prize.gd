@@ -36,17 +36,24 @@ func try_complete_reveal(scratch_circle: Node) -> void:
 	if revealed:
 		return
 	var local_pos: Vector2 = scratch_circle.to_local(global_position)
-	var fraction: float = scratch_circle.get_revealed_fraction(local_pos, _footprint_radius())
+	var footprint: float = _footprint_radius()
+	var fraction: float = scratch_circle.get_revealed_fraction(local_pos, footprint)
 	if fraction >= reveal_percentage:
 		revealed = true
 		prize_revealed.emit(bad, frame)
-		scratch_circle.reveal_area(local_pos, finish_reveal_radius)
+		scratch_circle.reveal_area(local_pos, _scaled_finish_reveal_radius(footprint))
 		reveal_effect.emitting = true
 
 func _footprint_radius() -> float:
 	if _footprint_px_radius < 0.0:
 		_footprint_px_radius = _measure_footprint_px_radius()
 	return _footprint_px_radius * max(scale.x, scale.y)
+
+# finish_reveal_radius is authored at this prize's default size, so it needs
+# to grow/shrink with `size` the same way the footprint does — and can never
+# go below the footprint itself, or a bigger prize wouldn't fully clear.
+func _scaled_finish_reveal_radius(footprint_radius: float) -> float:
+	return max(finish_reveal_radius * max(scale.x, scale.y), footprint_radius)
 
 # Scans this frame's own pixels for actual opaque bounds — correctly handles
 # both sprite sheets (hframes/vframes) and art that doesn't fill its frame.
