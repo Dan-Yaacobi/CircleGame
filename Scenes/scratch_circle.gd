@@ -19,7 +19,7 @@ var mask_image: Image
 var mask_texture: ImageTexture
 
 func _ready() -> void:
-	
+	cover_sprite.visible = true
 	var bg_mat := background_sprite.material as ShaderMaterial
 	bg_mat.set_shader_parameter("texture_size", background_sprite.texture.get_size())
 	bg_mat.set_shader_parameter("circle_center", Vector2(0.5, 0.5))
@@ -28,7 +28,8 @@ func _ready() -> void:
 	_update_boundary()
 	if !Engine.is_editor_hint():
 		player.set_sprite_frame()
-		
+
+
 func _setup_scratch_mask() -> void:
 	mask_image = Image.create_empty(mask_resolution, mask_resolution, false, Image.FORMAT_R8)
 	mask_image.fill(Color(1, 1, 1, 1))  # fully covered

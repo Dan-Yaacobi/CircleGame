@@ -7,9 +7,9 @@ var radius: float = 100.0
 ## Game-juice bend: on impact, the segments near the touch angle dent inward
 ## and spring back like a damped spring (with a little overshoot/wobble).
 @export var bend_strength: float = 30.0  # px, max inward push at the touch point
-@export_range(0.01, PI, 0.01) var bend_spread: float = 0.5  # radians, angular half-width affected
-@export var bend_falloff: float = 2.0  # higher = tighter/sharper dent around the touch point
-@export var bend_stiffness: float = 140.0  # spring tension — higher snaps back faster/harder
+@export_range(0.01, PI, 0.01) var bend_spread: float = 0.25  # radians, angular half-width affected
+@export var bend_falloff: float = 1.0  # higher = tighter/sharper dent around the touch point
+@export var bend_stiffness: float = 500.0  # spring tension — higher snaps back faster/harder
 @export var bend_damping: float = 10.0  # higher settles the wobble faster, less bounce
 
 var _bend_angle: float = 0.0
@@ -17,7 +17,7 @@ var _bend_intensity: float = 0.0  # spring displacement, 1.0 = full dent, oscill
 var _bend_velocity: float = 0.0
 
 func _ready():
-	width = 4.0
+	#width = 4.0
 	antialiased = true
 	_update_circle()
 
