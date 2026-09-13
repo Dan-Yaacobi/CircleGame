@@ -6,7 +6,18 @@ enum State { ORBITING, THROUGH_CENTER }
 @export var angular_speed: float = 2.0  # radians/sec, positive = clockwise
 @export var charge_speed_multiplier: float = 2.0
 @export var launch_speed: float = 400.0
-@export var reveal_radius: float = 14.0  # used by circles that support scratch-reveal
+
+# How big the scratch-reveal brush is per unit of player_scale — calibrated
+# so the previous fixed default (reveal_radius=14 at scale=4) is unchanged.
+const REVEAL_RADIUS_PER_SCALE: float = 3.5
+
+@export var player_scale: float = 4.0:
+	set(value):
+		player_scale = value
+		scale = Vector2.ONE * player_scale
+		reveal_radius = REVEAL_RADIUS_PER_SCALE * player_scale
+
+var reveal_radius: float = 14.0  # used by circles that support scratch-reveal — kept in sync with player_scale above
 
 @onready var circle = $".."  # Circle or ScratchCircle — duck-typed (global_position, curr_radius)
 

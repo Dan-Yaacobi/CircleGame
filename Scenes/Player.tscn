@@ -16,8 +16,8 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1)
 radius = 5.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1131700885]
-scale = Vector2(4, 4)
 script = ExtResource("1_rpqav")
+player_scale = 4.0
 charge_speed_multiplier = 3.0
 launch_speed = 1000.0
 
