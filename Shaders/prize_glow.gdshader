@@ -27,9 +27,11 @@ const int RADIUS_STEPS = 4;
 
 // Reads the sprite's alpha at a point in this frame's own local UV (0..1),
 // clamped so it can never read past this frame's edge into a neighbor.
-float sample_alpha(vec2 local_uv) {
+// Built-in samplers like TEXTURE aren't visible inside user functions unless
+// passed in explicitly, hence the parameter.
+float sample_alpha(sampler2D tex, vec2 local_uv) {
 	vec2 clamped = clamp(local_uv, vec2(0.0), vec2(1.0));
-	return texture(TEXTURE, frame_uv_origin + clamped * frame_uv_size).a;
+	return texture(tex, frame_uv_origin + clamped * frame_uv_size).a;
 }
 
 void fragment() {
@@ -51,7 +53,7 @@ void fragment() {
 				for (int i = 0; i < ring_samples; i++) {
 					float ang = TAU_C * float(i) / float(ring_samples);
 					vec2 offset = vec2(cos(ang), sin(ang)) * dist_px * px_to_uv;
-					if (sample_alpha(local_uv + offset) > alpha_threshold) {
+					if (sample_alpha(TEXTURE, local_uv + offset) > alpha_threshold) {
 						hit_radius = min(hit_radius, dist_px);
 					}
 				}
