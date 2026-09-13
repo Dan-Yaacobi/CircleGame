@@ -52,9 +52,13 @@ signal prize_revealed(_bad: bool, id: int)
 		alpha_threshold = value
 		_update_glow_uniform("alpha_threshold", value)
 
+@export_group("Reveal")
 @export_range(0.0, 1.0) var reveal_percentage: float = 0.5  # fraction of this prize that must be scratched off
 @export var finish_reveal_radius: float = 40.0  # bonus reveal radius once the threshold is hit
+
+@export_group("Movement")
 @export var movement: MovementBehavior
+
 @onready var reveal_effect: CPUParticles2D = $RevealEffect
 @onready var bad_reveal_effect: CPUParticles2D = $BadRevealEffect
 
