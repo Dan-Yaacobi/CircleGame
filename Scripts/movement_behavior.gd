@@ -31,7 +31,11 @@ enum Type { NONE, VERTICAL, HORIZONTAL, DIAGONAL, CIRCLE }
 @export var speed: float = 2.0
 
 ## Px — oscillation amplitude for VERTICAL/HORIZONTAL/DIAGONAL (how far it
-## swings from its resting point each way), or orbit radius for CIRCLE.
+## swings from its resting point each way). Not used by CIRCLE — its orbit
+## radius is each object's own starting distance from the orbit center
+## (see apply() below), so several objects scattered at different distances
+## keep their layout while all orbiting the same center together, instead
+## of each one just circling in place around wherever it started.
 @export var distance: float = 12.0
 
 ## Direction of travel for DIAGONAL, in degrees (0 = →, 90 = ↑). Vertical
@@ -39,7 +43,8 @@ enum Type { NONE, VERTICAL, HORIZONTAL, DIAGONAL, CIRCLE }
 @export_range(0.0, 360.0, 1.0) var diagonal_angle_degrees: float = 45.0
 
 # Pure function of elapsed time — no side effects, safe to call from many
-# nodes sharing one resource.
+# nodes sharing one resource. Doesn't cover CIRCLE: orbiting a shared point
+# needs the object's own starting position too — see apply().
 func compute_offset(elapsed: float) -> Vector2:
 	match type:
 		Type.VERTICAL:
@@ -49,13 +54,20 @@ func compute_offset(elapsed: float) -> Vector2:
 		Type.DIAGONAL:
 			var dir := Vector2.RIGHT.rotated(deg_to_rad(diagonal_angle_degrees))
 			return dir * sin(elapsed * speed) * distance
-		Type.CIRCLE:
-			var angle := elapsed * speed
-			return Vector2(cos(angle), sin(angle)) * distance
 		_:
 			return Vector2.ZERO
 
 ## Convenience: positions `node` at `origin` plus this behavior's offset at
-## `elapsed` seconds. No-ops harmlessly when type is NONE.
-func apply(node: Node2D, origin: Vector2, elapsed: float) -> void:
-	node.position = origin + compute_offset(elapsed)
+## `elapsed` seconds. CIRCLE instead orbits around `center` (defaults to the
+## local origin, e.g. a ticket's own center), using `origin`'s own distance
+## and angle from `center` as the starting radius/phase — so it eases into
+## orbiting from wherever it's already placed rather than snapping onto a
+## fixed-radius ring.
+func apply(node: Node2D, origin: Vector2, elapsed: float, center: Vector2 = Vector2.ZERO) -> void:
+	if type == Type.CIRCLE:
+		var from_center := origin - center
+		var radius := from_center.length()
+		var angle := from_center.angle() + elapsed * speed
+		node.position = center + Vector2(cos(angle), sin(angle)) * radius
+	else:
+		node.position = origin + compute_offset(elapsed)
