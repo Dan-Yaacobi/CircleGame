@@ -9,6 +9,11 @@
 resource_local_to_scene = true
 shader = ExtResource("4_glow")
 
+[sub_resource type="MovementBehavior" id="MovementBehavior_default"]
+type = 1
+speed = 2.0
+distance = 8.0
+
 [sub_resource type="Curve" id="Curve_1jmy8"]
 _limits = [0.0, 15.0, 0.0, 1.0]
 _data = [Vector2(0.0060423017, 15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -27,6 +32,7 @@ script = ExtResource("1_5dl8r")
 size = Vector2(1.5, 1.5)
 reveal_percentage = 0.75
 finish_reveal_radius = 30.0
+movement = SubResource("MovementBehavior_default")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1776774476]
 material = SubResource("ShaderMaterial_glow")

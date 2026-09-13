@@ -54,6 +54,7 @@ signal prize_revealed(_bad: bool, id: int)
 
 @export_range(0.0, 1.0) var reveal_percentage: float = 0.5  # fraction of this prize that must be scratched off
 @export var finish_reveal_radius: float = 40.0  # bonus reveal radius once the threshold is hit
+@export var movement: MovementBehavior
 @onready var reveal_effect: CPUParticles2D = $RevealEffect
 @onready var bad_reveal_effect: CPUParticles2D = $BadRevealEffect
 
@@ -66,11 +67,22 @@ var revealed: bool = false
 # sheet — every other frame too). Computed once from real pixel data.
 var _footprint_px_radius: float = -1.0
 
+var _movement_origin: Vector2
+var _movement_time: float = 0.0
+
 func _ready() -> void:
 	sprite.frame = frame
 	_footprint_px_radius = _measure_footprint_px_radius()
 	_update_glow_frame_uniforms()
 	_apply_all_glow_uniforms()
+	_movement_origin = position
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return  # don't let a live preview drift the saved position
+	if movement:
+		_movement_time += delta
+		movement.apply(self, _movement_origin, _movement_time)
 
 # Called by the ScratchCircle each time the cover mask changes.
 func try_complete_reveal(scratch_circle: Node) -> void:
