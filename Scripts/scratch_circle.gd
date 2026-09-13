@@ -73,7 +73,7 @@ func _ready() -> void:
 	for prize in prizes.get_children():
 		if prize is Prize:
 			prize.prize_revealed.connect(update_prize_found)
-			
+	prizes.rotate(randf_range(0.0,TAU))
 
 func update_prize_found(_bad: bool, id: int) -> void:
 	if not _bad:

@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://b2bbjlgpo536g" path="res://Scenes/prize.tscn" id="5_2h8qs"]
 [ext_resource type="Shader" uid="uid://yptujjqjakb8" path="res://Shaders/scratch_cover.gdshader" id="6_rpty4"]
 [ext_resource type="PackedScene" uid="uid://cuo1lj8ta6aqu" path="res://Scenes/Player.tscn" id="7_6jj8j"]
-[ext_resource type="Script" uid="uid://c3vm6ru5h2tb3" path="res://Scripts/movement_behavior.gd" id="7_jcebb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
 shader = ExtResource("4_bdlbp")
@@ -19,50 +18,6 @@ shader_parameter/edge_softness = 2.0
 shader_parameter/image_offset = Vector2(0, 0)
 shader_parameter/image_zoom = 0.6000000000000001
 shader_parameter/image_rotation = 0.0
-
-[sub_resource type="Resource" id="Resource_57lp3"]
-script = ExtResource("7_jcebb")
-type = 2
-distance = 10.0
-
-[sub_resource type="Resource" id="Resource_jcebb"]
-script = ExtResource("7_jcebb")
-type = 3
-speed = 3.0
-distance = 20.0
-
-[sub_resource type="Resource" id="Resource_n5ptj"]
-script = ExtResource("7_jcebb")
-type = 1
-speed = 1.5
-distance = 6.0
-
-[sub_resource type="Resource" id="Resource_77iba"]
-script = ExtResource("7_jcebb")
-type = 1
-speed = 3.0
-distance = 10.0
-
-[sub_resource type="Resource" id="Resource_67y36"]
-script = ExtResource("7_jcebb")
-type = 2
-distance = 8.0
-
-[sub_resource type="Resource" id="Resource_hk4vc"]
-script = ExtResource("7_jcebb")
-type = 1
-distance = 8.0
-
-[sub_resource type="Resource" id="Resource_f3nwb"]
-script = ExtResource("7_jcebb")
-type = 4
-speed = 0.3
-distance = 8.0
-
-[sub_resource type="Resource" id="Resource_wiu4c"]
-script = ExtResource("7_jcebb")
-type = 2
-speed = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cover"]
 shader = ExtResource("6_rpty4")
@@ -99,17 +54,15 @@ frame = 2
 size = Vector2(2, 2)
 bad = true
 glow_color = Color(0.69803923, 0, 0.11372549, 1)
-movement = SubResource("Resource_57lp3")
 
 [node name="Prize10" parent="Prizes" unique_id=840534234 instance=ExtResource("5_2h8qs")]
-position = Vector2(-181, -49)
+position = Vector2(-252, -81)
 scale = Vector2(3, 3)
 frame = 2
 size = Vector2(3, 3)
 bad = true
 glow_color = Color(0.69857377, 0, 0.11413225, 1)
 finish_reveal_radius = 20.0
-movement = SubResource("Resource_jcebb")
 
 [node name="Prize2" parent="Prizes" unique_id=511138707 instance=ExtResource("5_2h8qs")]
 position = Vector2(-90, -139)
@@ -117,7 +70,6 @@ scale = Vector2(2, 2)
 frame = 1
 size = Vector2(2, 2)
 glow_color = Color(1, 1, 1, 1)
-movement = SubResource("Resource_n5ptj")
 
 [node name="Prize6" parent="Prizes" unique_id=1504527797 instance=ExtResource("5_2h8qs")]
 position = Vector2(13, -281)
@@ -125,7 +77,6 @@ scale = Vector2(2, 2)
 frame = 1
 size = Vector2(2, 2)
 glow_color = Color(1, 1, 1, 1)
-movement = SubResource("Resource_77iba")
 
 [node name="Prize5" parent="Prizes" unique_id=876185050 instance=ExtResource("5_2h8qs")]
 position = Vector2(187, 91)
@@ -133,7 +84,6 @@ scale = Vector2(2, 2)
 frame = 1
 size = Vector2(2, 2)
 glow_color = Color(1, 1, 1, 1)
-movement = SubResource("Resource_67y36")
 
 [node name="Prize9" parent="Prizes" unique_id=1163826514 instance=ExtResource("5_2h8qs")]
 position = Vector2(125, -194)
@@ -143,15 +93,13 @@ size = Vector2(2, 2)
 bad = true
 glow_color = Color(0.69803923, 0, 0.11372549, 1)
 reveal_percentage = 0.8
-movement = SubResource("Resource_hk4vc")
 
 [node name="Prize3" parent="Prizes" unique_id=1435180995 instance=ExtResource("5_2h8qs")]
-position = Vector2(159, -41)
+position = Vector2(253, -88)
 scale = Vector2(3, 3)
 frame = 1
 size = Vector2(3, 3)
 glow_color = Color(1, 1, 1, 1)
-movement = SubResource("Resource_f3nwb")
 
 [node name="Prize4" parent="Prizes" unique_id=575650863 instance=ExtResource("5_2h8qs")]
 position = Vector2(-177, 127.000015)
@@ -159,7 +107,6 @@ scale = Vector2(2.5, 2.5)
 frame = 1
 size = Vector2(2.5, 2.5)
 glow_color = Color(1, 1, 1, 1)
-movement = SubResource("Resource_wiu4c")
 
 [node name="CoverSprite" type="Sprite2D" parent="." unique_id=202632716]
 visible = false
@@ -169,7 +116,6 @@ scale = Vector2(3.3333333, 3.3333333)
 [node name="Player" parent="." unique_id=2074714301 instance=ExtResource("7_6jj8j")]
 charge_speed_multiplier = 2.0
 launch_speed = 1250.0
-reveal_radius = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1689411971]
 

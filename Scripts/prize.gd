@@ -80,11 +80,15 @@ func _ready() -> void:
 	_update_glow_frame_uniforms()
 	_apply_all_glow_uniforms()
 	_movement_origin = position
+	random_rotation()
+	
+func random_rotation() -> void:
+	rotate(randf_range(0.0, TAU))
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return  # don't let a live preview drift the saved position
-	if movement:
+	if movement and not revealed:
 		_movement_time += delta
 		movement.apply(self, _movement_origin, _movement_time)
 

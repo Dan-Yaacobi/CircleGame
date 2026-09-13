@@ -11,11 +11,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
 shader = ExtResource("4_ipaot")
 shader_parameter/circle_center = Vector2(0.5, 0.5)
-shader_parameter/radius_px = 350.0
+shader_parameter/radius_px = 400.0
 shader_parameter/texture_size = Vector2(1254, 1254)
 shader_parameter/edge_softness = 2.0
 shader_parameter/image_offset = Vector2(0, 0)
-shader_parameter/image_zoom = 0.6000000000000001
+shader_parameter/image_zoom = 0.7000000000000001
 shader_parameter/image_rotation = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cover"]
@@ -25,19 +25,19 @@ shader_parameter/edge_softness = 0.015
 
 [node name="ScratchCircle" type="Node2D" unique_id=1433075271]
 script = ExtResource("1_f8qf7")
-curr_radius = 350.0
+curr_radius = 400.0
 max_shoots = -1
 background_texture = ExtResource("5_lmdar")
-image_zoom = 0.6000000000000001
+image_zoom = 0.7000000000000001
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1867971872]
-points = PackedVector2Array(350, 0, 348.31467, 34.306, 343.27484, 68.28162, 334.92914, 101.59963, 323.35782, 133.9392, 308.67245, 164.98886, 291.01434, 194.44958, 270.55365, 222.03764, 247.48737, 247.48737, 222.03764, 270.55365, 194.44958, 291.01434, 164.98886, 308.67245, 133.9392, 323.35782, 101.59963, 334.92914, 68.28162, 343.27484, 34.306, 348.31467, 2.1430611e-14, 350, -34.306, 348.31467, -68.28162, 343.27484, -101.59963, 334.92914, -133.9392, 323.35782, -164.98886, 308.67245, -194.44958, 291.01434, -222.03764, 270.55365, -247.48737, 247.48737, -270.55365, 222.03764, -291.01434, 194.44958, -308.67245, 164.98886, -323.35782, 133.9392, -334.92914, 101.59963, -343.27484, 68.28162, -348.31467, 34.306, -350, 4.2861222e-14, -348.31467, -34.306, -343.27484, -68.28162, -334.92914, -101.59963, -323.35782, -133.9392, -308.67245, -164.98886, -291.01434, -194.44958, -270.55365, -222.03764, -247.48737, -247.48737, -222.03764, -270.55365, -194.44958, -291.01434, -164.98886, -308.67245, -133.9392, -323.35782, -101.59963, -334.92914, -68.28162, -343.27484, -34.306, -348.31467, -6.4291834e-14, -350, 34.306, -348.31467, 68.28162, -343.27484, 101.59963, -334.92914, 133.9392, -323.35782, 164.98886, -308.67245, 194.44958, -291.01434, 222.03764, -270.55365, 247.48737, -247.48737, 270.55365, -222.03764, 291.01434, -194.44958, 308.67245, -164.98886, 323.35782, -133.9392, 334.92914, -101.59963, 343.27484, -68.28162, 348.31467, -34.306, 350, -8.5722445e-14)
+points = PackedVector2Array(400, 0, 398.07388, 39.206856, 392.3141, 78.03613, 382.77615, 116.11387, 369.5518, 153.07336, 352.76852, 188.5587, 332.58783, 222.2281, 309.20416, 253.75731, 282.8427, 282.8427, 253.75731, 309.20416, 222.2281, 332.58783, 188.5587, 352.76852, 153.07336, 369.5518, 116.11387, 382.77615, 78.03613, 392.3141, 39.206856, 398.07388, 2.4492127e-14, 400, -39.206856, 398.07388, -78.03613, 392.3141, -116.11387, 382.77615, -153.07336, 369.5518, -188.5587, 352.76852, -222.2281, 332.58783, -253.75731, 309.20416, -282.8427, 282.8427, -309.20416, 253.75731, -332.58783, 222.2281, -352.76852, 188.5587, -369.5518, 153.07336, -382.77615, 116.11387, -392.3141, 78.03613, -398.07388, 39.206856, -400, 4.8984254e-14, -398.07388, -39.206856, -392.3141, -78.03613, -382.77615, -116.11387, -369.5518, -153.07336, -352.76852, -188.5587, -332.58783, -222.2281, -309.20416, -253.75731, -282.8427, -282.8427, -253.75731, -309.20416, -222.2281, -332.58783, -188.5587, -352.76852, -153.07336, -369.5518, -116.11387, -382.77615, -78.03613, -392.3141, -39.206856, -398.07388, -7.347638e-14, -400, 39.206856, -398.07388, 78.03613, -392.3141, 116.11387, -382.77615, 153.07336, -369.5518, 188.5587, -352.76852, 222.2281, -332.58783, 253.75731, -309.20416, 282.8427, -282.8427, 309.20416, -253.75731, 332.58783, -222.2281, 352.76852, -188.5587, 369.5518, -153.07336, 382.77615, -116.11387, 392.3141, -78.03613, 398.07388, -39.206856, 400, -9.796851e-14)
 width = 8.0
 antialiased = true
 script = ExtResource("3_d1swa")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1396663698]
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(0.8, 0.8)
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=837175749]
 material = SubResource("ShaderMaterial_bg")
@@ -46,42 +46,43 @@ texture = ExtResource("5_lmdar")
 [node name="Prizes" type="Node2D" parent="." unique_id=1571220427]
 
 [node name="Prize" parent="Prizes" unique_id=1504527797 instance=ExtResource("5_ao4h1")]
-position = Vector2(-84, -37)
+position = Vector2(-178, -34)
 scale = Vector2(2, 2)
 frame = 2
 size = Vector2(2, 2)
 bad = true
+glow_color = Color(0.69803923, 0, 0.11372549, 1)
+
+[node name="Prize5" parent="Prizes" unique_id=1431807638 instance=ExtResource("5_ao4h1")]
+position = Vector2(195, 226)
+scale = Vector2(1.8, 1.8)
+frame = 2
+size = Vector2(1.8, 1.8)
+bad = true
+glow_color = Color(0.69803923, 0, 0.11372549, 1)
 
 [node name="Prize12" parent="Prizes" unique_id=637415890 instance=ExtResource("5_ao4h1")]
-position = Vector2(-52, 132)
+position = Vector2(-19, 125)
 scale = Vector2(2, 2)
 frame = 2
 size = Vector2(2, 2)
 bad = true
+glow_color = Color(0.69803923, 0, 0.11372549, 1)
 
 [node name="Prize10" parent="Prizes" unique_id=840534234 instance=ExtResource("5_ao4h1")]
-position = Vector2(-100, -197)
+position = Vector2(-130, -234.00002)
 scale = Vector2(3, 3)
 frame = 2
 size = Vector2(3, 3)
 bad = true
+glow_color = Color(0.69803923, 0, 0.11372549, 1)
 
 [node name="Prize2" parent="Prizes" unique_id=511138707 instance=ExtResource("5_ao4h1")]
 position = Vector2(20, -112)
 scale = Vector2(2, 2)
 frame = 1
 size = Vector2(2, 2)
-
-[node name="Prize11" parent="Prizes" unique_id=907809180 instance=ExtResource("5_ao4h1")]
-position = Vector2(-236, -34)
-
-[node name="Prize6" parent="Prizes" unique_id=2102448475 instance=ExtResource("5_ao4h1")]
-position = Vector2(46, 201)
-scale = Vector2(2, 2)
-size = Vector2(2, 2)
-
-[node name="Prize8" parent="Prizes" unique_id=1435238262 instance=ExtResource("5_ao4h1")]
-position = Vector2(187, 79)
+glow_color = Color(1, 1, 1, 1)
 
 [node name="Prize9" parent="Prizes" unique_id=1163826514 instance=ExtResource("5_ao4h1")]
 position = Vector2(125, -194)
@@ -89,18 +90,21 @@ scale = Vector2(2, 2)
 frame = 2
 size = Vector2(2, 2)
 bad = true
+glow_color = Color(0.69803923, 0, 0.11372549, 1)
 
 [node name="Prize3" parent="Prizes" unique_id=1435180995 instance=ExtResource("5_ao4h1")]
 position = Vector2(267, -55)
 scale = Vector2(3, 3)
 frame = 1
 size = Vector2(3, 3)
+glow_color = Color(1, 1, 1, 1)
 
 [node name="Prize4" parent="Prizes" unique_id=575650863 instance=ExtResource("5_ao4h1")]
-position = Vector2(-193, 144.00002)
+position = Vector2(-193.00002, 181)
 scale = Vector2(2.5, 2.5)
 frame = 1
 size = Vector2(2.5, 2.5)
+glow_color = Color(1, 1, 1, 1)
 
 [node name="CoverSprite" type="Sprite2D" parent="." unique_id=202632716]
 visible = false
