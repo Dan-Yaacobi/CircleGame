@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://Shaders/prize_glow.gdshader" id="4_glow"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_glow"]
+resource_local_to_scene = true
 shader = ExtResource("4_glow")
 shader_parameter/glow_color = Color(1, 0.85, 0.3, 1)
 shader_parameter/outline_width = 2.0
