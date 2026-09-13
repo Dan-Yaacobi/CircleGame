@@ -14,6 +14,44 @@ signal prize_revealed(_bad: bool, id: int)
 		scale = value
 @export var bad: bool
 
+@export_group("Glow")
+@export var glow_color: Color = Color(1.0, 0.85, 0.3, 1.0):
+	set(value):
+		glow_color = value
+		_update_glow_uniform("glow_color", value)
+@export_range(0.0, 16.0, 0.1) var outline_width: float = 2.0:  # px, crisp core ring thickness
+	set(value):
+		outline_width = value
+		_update_glow_uniform("outline_width", value)
+@export_range(0.0, 32.0, 0.1) var glow_spread: float = 6.0:  # px, extra soft halo past the ring
+	set(value):
+		glow_spread = value
+		_update_glow_uniform("glow_spread", value)
+@export_range(0.01, 1.0, 0.01) var glow_softness: float = 0.5:  # 0 = hard ring, 1 = soft cloud
+	set(value):
+		glow_softness = value
+		_update_glow_uniform("glow_softness", value)
+@export_range(0.0, 5.0, 0.05) var glow_intensity: float = 1.5:  # brightness of the glow
+	set(value):
+		glow_intensity = value
+		_update_glow_uniform("glow_intensity", value)
+@export_range(0.0, 10.0, 0.1) var pulse_speed: float = 2.0:  # cycles/sec, 0 disables pulsing
+	set(value):
+		pulse_speed = value
+		_update_glow_uniform("pulse_speed", value)
+@export_range(0.0, 1.0, 0.01) var pulse_amount: float = 0.35:  # how much the pulse changes intensity
+	set(value):
+		pulse_amount = value
+		_update_glow_uniform("pulse_amount", value)
+@export_range(4, 32, 1) var ring_samples: int = 10:  # angular resolution of the silhouette scan (cost knob)
+	set(value):
+		ring_samples = value
+		_update_glow_uniform("ring_samples", value)
+@export_range(0.0, 1.0, 0.01) var alpha_threshold: float = 0.5:  # alpha above which a texel counts as "sprite"
+	set(value):
+		alpha_threshold = value
+		_update_glow_uniform("alpha_threshold", value)
+
 @export_range(0.0, 1.0) var reveal_percentage: float = 0.5  # fraction of this prize that must be scratched off
 @export var finish_reveal_radius: float = 40.0  # bonus reveal radius once the threshold is hit
 @onready var reveal_effect: CPUParticles2D = $RevealEffect
@@ -32,6 +70,7 @@ func _ready() -> void:
 	sprite.frame = frame
 	_footprint_px_radius = _measure_footprint_px_radius()
 	_update_glow_frame_uniforms()
+	_apply_all_glow_uniforms()
 
 # Called by the ScratchCircle each time the cover mask changes.
 func try_complete_reveal(scratch_circle: Node) -> void:
@@ -59,6 +98,27 @@ func _footprint_radius() -> float:
 # go below the footprint itself, or a bigger prize wouldn't fully clear.
 func _scaled_finish_reveal_radius(footprint_radius: float) -> float:
 	return max(finish_reveal_radius * max(scale.x, scale.y), footprint_radius)
+
+# Pushes every glow export to the shader at once — used on _ready() to cover
+# values that were assigned (from the scene file or defaults) before `sprite`
+# existed, since the individual setters above no-op until then.
+func _apply_all_glow_uniforms() -> void:
+	_update_glow_uniform("glow_color", glow_color)
+	_update_glow_uniform("outline_width", outline_width)
+	_update_glow_uniform("glow_spread", glow_spread)
+	_update_glow_uniform("glow_softness", glow_softness)
+	_update_glow_uniform("glow_intensity", glow_intensity)
+	_update_glow_uniform("pulse_speed", pulse_speed)
+	_update_glow_uniform("pulse_amount", pulse_amount)
+	_update_glow_uniform("ring_samples", ring_samples)
+	_update_glow_uniform("alpha_threshold", alpha_threshold)
+
+func _update_glow_uniform(param_name: String, value) -> void:
+	if not sprite:
+		return
+	var mat := sprite.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter(param_name, value)
 
 # Tells the glow shader exactly which sub-rectangle of the shared sprite
 # sheet is "this icon", so its silhouette scan never bleeds into a neighbor.

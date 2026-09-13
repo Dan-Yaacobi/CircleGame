@@ -8,15 +8,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_glow"]
 resource_local_to_scene = true
 shader = ExtResource("4_glow")
-shader_parameter/glow_color = Color(1, 0.85, 0.3, 1)
-shader_parameter/outline_width = 2.0
-shader_parameter/glow_spread = 6.0
-shader_parameter/glow_softness = 0.5
-shader_parameter/glow_intensity = 1.5
-shader_parameter/pulse_speed = 2.0
-shader_parameter/pulse_amount = 0.35
-shader_parameter/ring_samples = 10
-shader_parameter/alpha_threshold = 0.5
 
 [sub_resource type="Curve" id="Curve_1jmy8"]
 _limits = [0.0, 15.0, 0.0, 1.0]
