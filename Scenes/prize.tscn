@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dxhvdl22hnm4o" path="res://Assets/Prizes.png" id="2_5dl8r"]
 [ext_resource type="Texture2D" uid="uid://bqtgrdb2onjc8" path="res://Assets/Skull.png" id="3_b162x"]
 [ext_resource type="Shader" path="res://Shaders/prize_glow.gdshader" id="4_glow"]
+[ext_resource type="Script" path="res://Scripts/movement_behavior.gd" id="5_movement"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_glow"]
 resource_local_to_scene = true
 shader = ExtResource("4_glow")
 
-[sub_resource type="MovementBehavior" id="MovementBehavior_default"]
+[sub_resource type="Resource" id="MovementBehavior_default"]
+script = ExtResource("5_movement")
 type = 1
 speed = 2.0
 distance = 8.0
